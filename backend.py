@@ -9,6 +9,7 @@ import uvicorn
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 stripe.api_key = STRIPE_SECRET_KEY
 
+
 app = FastAPI()
 
 # Criar banco de dados
@@ -56,7 +57,7 @@ async def stripe_webhook(request: Request):
     """Webhook para capturar pagamentos confirmados"""
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature")
-    endpoint_secret = "sua_chave_secreta_do_webhook"
+    endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
 
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
