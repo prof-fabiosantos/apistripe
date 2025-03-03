@@ -58,6 +58,7 @@ async def stripe_webhook(request: Request):
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature")
     endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+    print(f"WebHook:"+endpoint_secret)
 
     try:
         event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
@@ -82,6 +83,8 @@ async def stripe_webhook(request: Request):
         conn.close()
 
         print(f"Pagamento confirmado: {email} pode acessar o analisador de vídeo")
+    else:
+        print(f"Pagamento não confirmado")
 
     return {"status": "success"}
 
