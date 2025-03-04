@@ -44,15 +44,15 @@ async def create_checkout_session(payment: PaymentRequest):
             payment_method_types=["card"],
             line_items=[{
                 "price_data": {
-                    "currency": "usd",
+                    "currency": "brl",
                     "product_data": {"name": "Acesso ao Analisador de Vídeo"},
                     "unit_amount": payment.amount,
                 },
                 "quantity": 1,
             }],
             mode="payment",
-            success_url="https://decentralizedtech.com.br/",
-            cancel_url="https://sisaut.vercel.app/",
+            success_url="https://decentralizedtech.com.br/ia_futebol_sucesso.html",
+            cancel_url="https://sisaut.vercel.app/ia_futebol_cancel.html",
             customer_email=payment.email
         )
         return {"checkout_url": session.url}
